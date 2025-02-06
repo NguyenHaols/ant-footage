@@ -1,9 +1,14 @@
+import { DataFilterParams } from '@/types';
+
 export const COOKIES_KEY = {
-  TOKEN: 'at',
-  REFRESH_TOKEN: 'rt'
-}
+    TOKEN: 'at',
+    REFRESH_TOKEN: 'rt',
+};
 
 export const ROUTES = {
-  LOGIN: '/login',
-  ORDER: '/order'
-}
+    LOGIN: '/login',
+    ORDER: '/order',
+    USER: '/user',
+};
+
+export const defaultFilterParams: DataFilterParams = {};
