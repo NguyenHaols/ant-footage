@@ -1,20 +1,40 @@
 'use client';
-// import { defaultFilterParams } from '@/constants';
-// import { useFilter } from '@/hooks/useFilter';
-import UserHeader from '@/modules/user/components/userHeader';
-import UserTable from '@/modules/user/components/userTable';
-import useUserList from '@/modules/user/hooks/useGetUsers';
+import AppPagination from '@/components/pagination';
+import { defaulFilterUserParams } from '@/constants';
+import { TYPE_MODAL_USER } from '@/enums';
+import { useFilter } from '@/hooks/useFilter';
+import { useModalStore } from '@/hooks/useModal';
+import UserHeader from '@/modules/user/components/user-header';
+import UserModal from '@/modules/user/components/user-modal';
+import UserTable from '@/modules/user/components/user-table';
+import useGetUsers from '@/modules/user/hooks/useGetUsers';
 
 export default function User() {
-    // const { dataFilter, onSearch } = useFilter(defaultFilterParams);
-    // console.log('🚀 ~ User ~ dataFilter:', dataFilter);
+    const { dataFilter, onChangePage } = useFilter(defaulFilterUserParams);
 
-    const { data, isFetching } = useUserList();
+    const { data, isFetching } = useGetUsers(dataFilter);
+
+    const { typeModal } = useModalStore();
 
     return (
         <div className="w-full">
             <UserHeader />
-            <UserTable data={data} loading={isFetching} />
+            <UserTable
+                dataSource={data.items}
+                loading={isFetching}
+                pagination={{
+                    pageSize: dataFilter.pageSize,
+                    current: dataFilter.page,
+                }}
+            />
+            <AppPagination
+                onChange={onChangePage}
+                total={data.metadata.totalItems}
+                pageSize={5}
+                align="center"
+            />
+
+            {typeModal === TYPE_MODAL_USER.UPDATE && <UserModal />}
         </div>
     );
 }

@@ -1,3 +1,5 @@
+import { MetaDataPage, ResponseCommon } from '@/types';
+
 export interface DataType {
     key: number;
     id?: number;
@@ -26,4 +28,17 @@ export interface User {
     otpVerifyEmail: string | null;
     otpVerifyEmailExpiresAt: string | null;
     isActive: boolean;
+}
+
+export interface GetUserListResponse extends ResponseCommon {
+    data: {
+        items: User[];
+        metadata: MetaDataPage;
+    };
+}
+
+export interface UserParams {
+    page: number;
+    pageSize: number;
+    keyword?: string;
 }

@@ -1,6 +1,6 @@
 import Sider from 'antd/es/layout/Sider';
-import SideBarHeader from './sideBarHeader';
-import SideBarMenu from './sideBarMenu';
+import SideBarHeader from './sideBar-header';
+import SideBarMenu from './sideBar-menu';
 
 interface SideBarProps {
     open: boolean;
@@ -29,7 +29,7 @@ export default function SideBar({ open }: SideBarProps) {
             width={'255px'}
             collapsedWidth={'3rem'}
         >
-            <div className="text-sidebar-foreground flex h-full flex-col justify-between">
+            <div className="flex h-full flex-col justify-between text-sidebar-foreground">
                 <div>
                     <SideBarHeader open={open} />
                     <SideBarMenu open={open} />

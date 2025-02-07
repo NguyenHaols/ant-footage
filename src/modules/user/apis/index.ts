@@ -1,8 +1,12 @@
 import axiosClient from '@/apiClient/axiosClient';
-import { User } from '../types';
+import { DataReponse, ListResponse } from '@/types';
+import { User, UserParams } from '../types';
 
 export const userApi = {
-    getUserList: () => {
-        return axiosClient.get<User[]>('/users');
+    getUserList: (params: UserParams) => {
+        return axiosClient.get<ListResponse<User>>('/users', { params });
+    },
+    updateUser: (id: string, data: any) => {
+        return axiosClient.put<DataReponse<User>>(`/users/${id}`, data);
     },
 };

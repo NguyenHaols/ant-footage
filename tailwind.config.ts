@@ -12,6 +12,7 @@ export default {
             colors: {
                 background: 'hsl(var(--background))',
                 foreground: 'hsl(var(--foreground))',
+                hoverBgColor: 'rgb(233 229 229)',
                 titleColor: 'var(--title-color',
                 card: {
                     DEFAULT: 'hsl(var(--card))',

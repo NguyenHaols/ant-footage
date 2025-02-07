@@ -6,7 +6,7 @@ import { ChangeEventHandler } from 'react';
 
 export type OnSearchType = ChangeEventHandler<HTMLInputElement>;
 
-export type OnChangePage = (offset: number, limit: number) => void;
+export type OnChangePage = (page: number, pageSize: number) => void;
 
 export type OnChangeFilter<DataFilterType> = (
     newValue: Partial<DataFilterType>,
@@ -76,10 +76,10 @@ export const useFilter = <DataFilterType>(
         });
     };
 
-    const onChangePage: OnChangePage = (offset: number, limit: number) => {
+    const onChangePage: OnChangePage = (page: number, pageSize: number) => {
         syncParamsToURL({
-            offset,
-            limit,
+            page,
+            pageSize,
         });
     };
 

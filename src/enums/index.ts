@@ -14,3 +14,12 @@ export enum LOCALE {
     EN = 'en',
     VI = 'vi',
 }
+
+export enum ORDER {
+    DESC = 'DESC',
+    ASC = 'ASC',
+}
+
+export enum TYPE_MODAL_USER {
+    UPDATE = 'UPDATE',
+}

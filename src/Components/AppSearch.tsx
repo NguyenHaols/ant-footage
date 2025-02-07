@@ -2,7 +2,7 @@ import { OnSearchType } from '@/hooks/useFilter';
 import { Input } from 'antd';
 import _ from 'lodash';
 type Props = {
-    value: string;
+    value: string | undefined;
     onChange?: OnSearchType;
     delay?: number;
 };

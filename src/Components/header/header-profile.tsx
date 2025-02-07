@@ -54,7 +54,6 @@ export default function HeaderProfile() {
         <div style={{ marginLeft: '.5rem' }}>
             <Dropdown menu={{ items }} trigger={['click']}>
                 <Avatar
-                    shape="square"
                     style={{ cursor: 'pointer', backgroundColor: '#f56a00' }}
                     size="default"
                 >

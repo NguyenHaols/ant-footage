@@ -33,7 +33,7 @@ export default function useAuth() {
             router.push(ROUTES.USER);
             return '';
         } catch (error: any) {
-            return error?.response.data.message;
+            return error?.response?.data.message;
         }
     }
 
