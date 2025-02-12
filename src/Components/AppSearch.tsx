@@ -1,6 +1,7 @@
 import { OnSearchType } from '@/hooks/useFilter';
 import { Input } from 'antd';
 import _ from 'lodash';
+import { useCallback, useEffect } from 'react';
 type Props = {
     value: string | undefined;
     onChange?: OnSearchType;
@@ -12,7 +13,18 @@ export default function AppSearch({
     onChange = () => {},
     delay = 300,
 }: Props) {
-    const debounceSearchChange = _.debounce(onChange, delay);
+    const debounceSearchChange = useCallback(
+        _.debounce((e: React.ChangeEvent<HTMLInputElement>) => {
+            onChange(e);
+        }, delay),
+        [onChange, delay]
+    );
+
+    useEffect(() => {
+        return () => {
+            debounceSearchChange.cancel();
+        };
+    }, [debounceSearchChange]);
 
     return (
         <Input

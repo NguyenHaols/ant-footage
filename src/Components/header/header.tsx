@@ -1,8 +1,8 @@
+import HeaderProfile from '@/components/header/header-profile';
+import LanguageSelect from '@/components/language-select';
 import { Button } from 'antd';
 import { Header } from 'antd/es/layout/layout';
 import { PanelLeftClose, PanelRightClose } from 'lucide-react';
-import LanguageSelect from '../language';
-import HeaderProfile from './header-profile';
 
 interface HeaderLayoutProps {
     collapsed: boolean;

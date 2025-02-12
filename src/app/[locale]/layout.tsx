@@ -1,4 +1,4 @@
-import { ProgressBar } from '@/Components/progressBar';
+import { ProgressBar } from '@/components/progressBar';
 import { routing } from '@/i18n/routing';
 import { configTheme } from '@/style/theme';
 import { AntdRegistry } from '@ant-design/nextjs-registry';
@@ -16,6 +16,7 @@ import { Inter } from 'next/font/google';
 import localFont from 'next/font/local';
 import { notFound } from 'next/navigation';
 import { PropsWithChildren } from 'react';
+import { ToastContainer } from 'react-toastify';
 import ReactQueryClientProvider from '../../../providers/QueryClientProvider';
 import '../../style/globals.css';
 
@@ -56,7 +57,6 @@ export default async function RootLayout({
     params,
 }: Readonly<RootLayoutProps>) {
     const { locale } = await params;
-    console.log('🚀 ~ locale:', locale);
 
     if (!routing.locales.includes(locale as any)) {
         notFound();
@@ -68,10 +68,11 @@ export default async function RootLayout({
             <body
                 className={`${inter.className} ${boston.variable} antialiased`}
             >
-                <NextIntlClientProvider messages={messages}>
+                <NextIntlClientProvider locale={locale} messages={messages}>
                     <AntdRegistry>
                         <ConfigProvider theme={configTheme}>
                             <ReactQueryClientProvider>
+                                <ToastContainer />
                                 {children}
                             </ReactQueryClientProvider>
                         </ConfigProvider>

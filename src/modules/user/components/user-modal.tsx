@@ -1,8 +1,9 @@
-import { TYPE_MODAL_USER } from '@/enums';
+import { TYPE_ACTION, TYPE_MODAL_USER } from '@/enums';
 import { useModalStore } from '@/hooks/useModal';
-import { Form, Input, Modal, ModalProps, Select } from 'antd';
+import { Form, Input, Modal, ModalProps, Select, Switch } from 'antd';
+import { useCreateUsers } from '../hooks/useCreateUsers';
 import useUpdateUser from '../hooks/useUpdateUser';
-import { User } from '../types';
+import { UpdateUser, User } from '../types';
 
 interface Props extends ModalProps {}
 export default function UserModal({ ...props }: Props) {
@@ -14,15 +15,37 @@ export default function UserModal({ ...props }: Props) {
 
     const [form] = Form.useForm();
 
-    const { updateUser } = useUpdateUser();
+    const handleError = (errors: any) => {
+        form.setFields(errors);
+    };
 
-    // update
-    const isUpdate = Boolean(dataEdit?.id);
+    const handleSuccess = () => {
+        form.resetFields();
+        closeModal();
+    };
+
+    const { updateUser, isPending: isPendingUpdate } =
+        useUpdateUser(handleError);
+
+    const { createUser, isPending: isPendingCreate } = useCreateUsers(
+        handleError,
+        handleSuccess
+    );
+
+    const isUpdate = Boolean(dataEdit);
 
     const onFinish = (values: User) => {
-        updateUser({ id: dataEdit?.id, data: values });
-        console.log('🚀 ~ onFinish ~ values:', values);
+        if (dataEdit) {
+            const newData: UpdateUser = {
+                data: { ...values },
+                id: (dataEdit as User).id,
+            };
+            updateUser(newData);
+        } else {
+            createUser(values);
+        }
     };
+
     return (
         <div>
             <Modal
@@ -30,9 +53,12 @@ export default function UserModal({ ...props }: Props) {
                 open
                 onCancel={closeModal}
                 onOk={() => form.submit()}
+                confirmLoading={isPendingUpdate || isPendingCreate}
             >
                 <span className="text-lg font-bold">
-                    {typeModal === TYPE_MODAL_USER.UPDATE ? 'Update' : 'Create'}
+                    {typeModal === TYPE_MODAL_USER.UPDATE
+                        ? TYPE_ACTION.UPDATE
+                        : TYPE_ACTION.CREATE}
                 </span>
                 <Form
                     form={form}
@@ -47,6 +73,33 @@ export default function UserModal({ ...props }: Props) {
                         name="email"
                         rules={[
                             { required: true, message: 'Email is required!' },
+                        ]}
+                    >
+                        <Input />
+                    </Form.Item>
+
+                    {!isUpdate && (
+                        <>
+                            <Form.Item
+                                label="Password"
+                                name="password"
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: 'Password is required!',
+                                    },
+                                ]}
+                            >
+                                <Input.Password />
+                            </Form.Item>
+                        </>
+                    )}
+
+                    <Form.Item
+                        label="Name"
+                        name="firstName"
+                        rules={[
+                            { required: true, message: 'Name is required!' },
                         ]}
                     >
                         <Input />
@@ -71,16 +124,6 @@ export default function UserModal({ ...props }: Props) {
                     </Form.Item>
 
                     <Form.Item
-                        label="Name"
-                        name="firstName"
-                        rules={[
-                            { required: true, message: 'Name is required!' },
-                        ]}
-                    >
-                        <Input />
-                    </Form.Item>
-
-                    <Form.Item
                         label="Role"
                         name="role"
                         rules={[
@@ -88,7 +131,9 @@ export default function UserModal({ ...props }: Props) {
                         ]}
                     >
                         <Select>
-                            <Select.Option value="staff">Staff</Select.Option>
+                            <Select.Option value="admin">Admin</Select.Option>
+                            <Select.Option value="user">user</Select.Option>
+                            <Select.Option value="viewer">viewer</Select.Option>
                         </Select>
                     </Form.Item>
 
@@ -103,6 +148,9 @@ export default function UserModal({ ...props }: Props) {
                         ]}
                     >
                         <Input />
+                    </Form.Item>
+                    <Form.Item label="Active" name="status">
+                        <Switch checked={(dataEdit as User)?.isActive} />
                     </Form.Item>
                 </Form>
             </Modal>

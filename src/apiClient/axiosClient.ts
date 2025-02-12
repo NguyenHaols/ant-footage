@@ -4,10 +4,9 @@ import Cookies from 'universal-cookie';
 
 const cookies = new Cookies();
 const axiosClient = axios.create({
-    baseURL: 'http://45.148.30.194:3000',
+    baseURL: process.env.API_URL,
     headers: {
         Accept: '*/*',
-        Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImM4NTMyNTNhLTI4ZWQtNDgyNS1hNTE5LWE0MWY4YmJjYjY5MiIsImVtYWlsIjoidjFAZ21haWwuY29tIiwiaWF0IjoxNzM4ODMxMTg4LCJleHAiOjE3NDI0MzExODh9.lG44cqR2OT9RqLo9683lWsKfCH3-4aJ7GNGECm7mtS0`,
     },
     timeout: 10000,
 });
@@ -53,8 +52,9 @@ axiosClient.interceptors.response.use(undefined, async (error) => {
     //         return (window.location.href = ROUTES.LOGIN);
     //     }
     // }
-    if (error?.response?.status === 401) {
-        return (window.location.href = ROUTES.LOGIN);
+    const currentLocale = cookies.get('NEXT_LOCALE');
+    if (error?.response?.status === 403) {
+        return (window.location.href = `/${currentLocale}/${ROUTES.LOGIN}`);
     }
     return Promise.reject(error);
 });

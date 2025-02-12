@@ -22,4 +22,10 @@ export enum ORDER {
 
 export enum TYPE_MODAL_USER {
     UPDATE = 'UPDATE',
+    CREATE = 'CREATE',
+}
+
+export enum TYPE_ACTION {
+    CREATE = 'Create',
+    UPDATE = 'Update',
 }

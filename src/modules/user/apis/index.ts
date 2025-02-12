@@ -7,6 +7,9 @@ export const userApi = {
         return axiosClient.get<ListResponse<User>>('/users', { params });
     },
     updateUser: (id: string, data: any) => {
-        return axiosClient.put<DataReponse<User>>(`/users/${id}`, data);
+        return axiosClient.patch<DataReponse<User>>(`/users/${id}`, data);
+    },
+    createUser: (data: Omit<User, 'id'>) => {
+        return axiosClient.post<DataReponse<User>>('/users', data);
     },
 };

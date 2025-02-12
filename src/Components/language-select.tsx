@@ -9,10 +9,9 @@ export default function LanguageSelect() {
     console.log('🚀 ~ LanguageSelect ~ locale:', locale);
     const router = useRouter();
     const pathname = usePathname();
-    // const queryParams = useQueryParams();
     const handleChange = (newLocale: string) => {
         if (newLocale !== locale) {
-            router.replace(`/${newLocale}${pathname}`); // Chuyển hướng đến URL với locale mới
+            router.replace(pathname, { locale: newLocale });
         }
     };
 
@@ -50,7 +49,7 @@ export default function LanguageSelect() {
         <Select
             style={{ width: 150 }}
             options={items}
-            value={locale}
+            defaultValue={locale}
             onChange={handleChange}
         />
     );

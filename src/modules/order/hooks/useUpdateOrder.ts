@@ -1,16 +1,23 @@
 import { showNotification } from '@/helpers/messagesHelper';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { userApi } from '../apis';
-import { userQuerykeys } from '../constants';
-import { UpdateUser } from '../types';
+import { orderApi } from '../apis';
+import { orderQuerykeys } from '../constants';
+import { UpdateOrder } from '../types';
 
-export default function useUpdateUser(onErrorCb: (errors: any) => void) {
+export const useUpdateOrder = (
+    onSuccessCb?: () => void,
+    onErrorCb?: (errors: any) => void
+) => {
     const queryClient = useQueryClient();
+
     const handleSuccess = () => {
         queryClient.invalidateQueries({
-            queryKey: userQuerykeys.getList,
+            queryKey: orderQuerykeys.getList,
         });
-        showNotification('success', 'Update user successfully');
+        if (onSuccessCb) {
+            onSuccessCb();
+        }
+        showNotification('success', 'Update order successfully');
     };
 
     const handleOnError = (error: any) => {
@@ -26,16 +33,15 @@ export default function useUpdateUser(onErrorCb: (errors: any) => void) {
     };
 
     const mutation = useMutation({
-        mutationFn: ({ id, data }: UpdateUser) => userApi.updateUser(id, data),
+        mutationFn: ({ id, data }: UpdateOrder) =>
+            orderApi.updateOrder(id, data),
         onSuccess: handleSuccess,
         onError: handleOnError,
     });
 
-    const updateUser = ({ id, data }: UpdateUser) => {
+    const updateOrder = ({ id, data }: UpdateOrder) => {
         mutation.mutate({ id, data });
     };
-    return {
-        ...mutation,
-        updateUser,
-    };
-}
+
+    return { updateOrder, ...mutation };
+};

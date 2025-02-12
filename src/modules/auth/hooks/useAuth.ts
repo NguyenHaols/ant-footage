@@ -1,4 +1,5 @@
 import { ROUTES } from '@/constants';
+import { showNotification } from '@/helpers/messagesHelper';
 import { useRouter } from '@/i18n/routing';
 import Cookies from 'universal-cookie';
 import { authApi } from '../apis';
@@ -23,6 +24,7 @@ export default function useAuth() {
                 secure: false,
                 sameSite: 'strict',
                 maxAge: 60 * 60 * 24,
+                httpOnly: false,
             }); // Lưu access token (expires sau 1 ngày)
             // cookies.set('rt', refresh_token, {
             //     secure: false,
@@ -31,9 +33,8 @@ export default function useAuth() {
             // }); // Lưu refresh token (expires sau 7 ngày)
             // await refetch();
             router.push(ROUTES.USER);
-            return '';
         } catch (error: any) {
-            return error?.response?.data.message;
+            showNotification('error', error?.response?.data.message);
         }
     }
 

@@ -15,6 +15,20 @@ export function formattedDate(
     );
 }
 
+export function formattedDateOnly(
+    date?: string | number | Date | dayjs.Dayjs | null | undefined,
+    format?: DATE_FORMAT | string,
+    locale?: string
+): string {
+    return (
+        (date &&
+            dayjs(date)
+                .locale(locale ?? 'en')
+                .format(format ?? DATE_FORMAT.DATE_ONLY)) ||
+        ''
+    );
+}
+
 export function getIndex(
     pageSize: number | undefined = 0,
     currentPage: number | undefined = 1,

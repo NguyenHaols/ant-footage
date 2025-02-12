@@ -1,3 +1,4 @@
+import { OrderParams } from '@/modules/order/types';
 import { UserParams } from '@/modules/user/types';
 import { ListResponse } from '@/types';
 
@@ -14,7 +15,7 @@ export const ROUTES = {
 
 export const defaulFilterUserParams: UserParams = {
     page: 1,
-    pageSize: 5,
+    pageSize: 10,
 };
 
 export const defaultData: ListResponse['data'] = {
@@ -25,4 +26,9 @@ export const defaultData: ListResponse['data'] = {
         totalItems: 0,
         totalPages: 0,
     },
+};
+
+export const deFaultOrderParams: OrderParams = {
+    page: 1,
+    pageSize: 10,
 };

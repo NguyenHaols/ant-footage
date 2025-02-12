@@ -41,4 +41,10 @@ export interface UserParams {
     page: number;
     pageSize: number;
     keyword?: string;
+    status?: boolean | string;
+}
+
+export interface UpdateUser {
+    id: string;
+    data: Partial<User>;
 }

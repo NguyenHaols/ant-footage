@@ -14,6 +14,9 @@ const nextConfig: NextConfig = {
         ],
         minimumCacheTTL: 1500000,
     },
+    env: {
+        API_URL: process.env.API_URL,
+    },
 };
 
 export default withNextIntl(nextConfig);

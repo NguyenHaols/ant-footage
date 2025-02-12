@@ -30,11 +30,12 @@ export default function User() {
             <AppPagination
                 onChange={onChangePage}
                 total={data.metadata.totalItems}
-                pageSize={5}
+                pageSize={defaulFilterUserParams.pageSize}
                 align="center"
             />
 
-            {typeModal === TYPE_MODAL_USER.UPDATE && <UserModal />}
+            {(typeModal === TYPE_MODAL_USER.UPDATE ||
+                typeModal === TYPE_MODAL_USER.CREATE) && <UserModal />}
         </div>
     );
 }

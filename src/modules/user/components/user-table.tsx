@@ -3,7 +3,7 @@ import { TYPE_MODAL_USER } from '@/enums';
 import { getIndex } from '@/helpers/common';
 import { useModalStore } from '@/hooks/useModal';
 import { formattedDate } from '@/lib/utils';
-import { Avatar, Table } from 'antd';
+import { Avatar, Table, Tag } from 'antd';
 import { ColumnType, TablePaginationConfig, TableProps } from 'antd/es/table';
 import { Pencil } from 'lucide-react';
 import { User } from '../types';
@@ -23,6 +23,7 @@ export default function UserTable({ ...props }: UserTableProps) {
             dataIndex: '',
             key: 'key',
             align: 'center',
+
             render: (text, record, index) =>
                 getIndex(
                     (props.pagination as TablePaginationConfig)?.pageSize,
@@ -76,10 +77,14 @@ export default function UserTable({ ...props }: UserTableProps) {
         },
         {
             title: 'Active',
-            dataIndex: 'isActive',
-            key: 'isActive',
+            dataIndex: 'status',
+            key: 'status',
             render: (value) => {
-                return <span>{value ? 'Active' : 'Blocked'}</span>;
+                return (
+                    <Tag color={value === true ? 'green' : 'red'}>
+                        {value === true ? 'Active' : 'Blocked'}
+                    </Tag>
+                );
             },
             align: 'center',
             filters: [
@@ -118,7 +123,7 @@ export default function UserTable({ ...props }: UserTableProps) {
                         onClick={() => {
                             handleOpenModal(value);
                         }}
-                        className="hover:bg-hoverBgColor rounded-full p-2"
+                        className="rounded-full p-2 hover:bg-hoverBgColor"
                     >
                         <Pencil size={16} />
                     </button>
@@ -127,10 +132,6 @@ export default function UserTable({ ...props }: UserTableProps) {
         },
     ];
 
-    const handleChangePage = (pagination: TablePaginationConfig) => {
-        console.log(pagination);
-    };
-
     return (
         <div>
             <Table
@@ -138,7 +139,6 @@ export default function UserTable({ ...props }: UserTableProps) {
                 rowKey={(record) => record?.id ?? Math.random()}
                 columns={columns}
                 pagination={false}
-                onChange={handleChangePage}
             />
         </div>
     );

@@ -1,16 +1,23 @@
 import { showNotification } from '@/helpers/messagesHelper';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { userApi } from '../apis';
-import { userQuerykeys } from '../constants';
-import { UpdateUser } from '../types';
+import { orderApi } from '../apis';
+import { orderQuerykeys } from '../constants';
+import { Order } from '../types';
 
-export default function useUpdateUser(onErrorCb: (errors: any) => void) {
+export const useCreateOrder = (
+    onSuccessCb?: () => void,
+    onErrorCb?: (errors: any) => void
+) => {
     const queryClient = useQueryClient();
+
     const handleSuccess = () => {
         queryClient.invalidateQueries({
-            queryKey: userQuerykeys.getList,
+            queryKey: orderQuerykeys.getList,
         });
-        showNotification('success', 'Update user successfully');
+        if (onSuccessCb) {
+            onSuccessCb();
+        }
+        showNotification('success', 'Create order successfully');
     };
 
     const handleOnError = (error: any) => {
@@ -19,23 +26,24 @@ export default function useUpdateUser(onErrorCb: (errors: any) => void) {
             name: error.key,
             errors: [error.message],
         }));
-
         if (onErrorCb) {
             onErrorCb(formattedErrors);
         }
+        showNotification('error', error.response.data.message[0]);
     };
 
     const mutation = useMutation({
-        mutationFn: ({ id, data }: UpdateUser) => userApi.updateUser(id, data),
+        mutationFn: (data: Omit<Order, 'id'>) => orderApi.createOrder(data),
         onSuccess: handleSuccess,
         onError: handleOnError,
     });
 
-    const updateUser = ({ id, data }: UpdateUser) => {
-        mutation.mutate({ id, data });
+    const createOrder = (data: Omit<Order, 'id'>) => {
+        mutation.mutate(data);
     };
+
     return {
+        createOrder,
         ...mutation,
-        updateUser,
     };
-}
+};
