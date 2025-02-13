@@ -2,6 +2,8 @@ import { OnSearchType } from '@/hooks/useFilter';
 import { Input } from 'antd';
 import _ from 'lodash';
 import { useCallback, useEffect } from 'react';
+import { useTranslations } from 'use-intl';
+
 type Props = {
     value: string | undefined;
     onChange?: OnSearchType;
@@ -13,6 +15,8 @@ export default function AppSearch({
     onChange = () => {},
     delay = 300,
 }: Props) {
+    const messages = useTranslations();
+
     const debounceSearchChange = useCallback(
         _.debounce((e: React.ChangeEvent<HTMLInputElement>) => {
             onChange(e);
@@ -28,7 +32,7 @@ export default function AppSearch({
 
     return (
         <Input
-            placeholder="Enter search"
+            placeholder={messages('placeholders.enterSearch')}
             defaultValue={value}
             onChange={(e) => debounceSearchChange(e)}
             allowClear

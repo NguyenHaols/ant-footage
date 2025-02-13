@@ -6,11 +6,13 @@ import { formattedDate } from '@/lib/utils';
 import { Avatar, Table, Tag } from 'antd';
 import { ColumnType, TablePaginationConfig, TableProps } from 'antd/es/table';
 import { Pencil } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import { User } from '../types';
 
 interface UserTableProps extends Omit<TableProps<User>, 'columns'> {}
 
 export default function UserTable({ ...props }: UserTableProps) {
+    const message = useTranslations();
     const { openModal } = useModalStore();
 
     const handleOpenModal = (value: User) => {
@@ -32,7 +34,7 @@ export default function UserTable({ ...props }: UserTableProps) {
                 ),
         },
         {
-            title: 'Avatar',
+            title: message('common.avatar'),
             dataIndex: 'avatarUrl',
             key: 'avatarUrl',
             render: (value, record) => (
@@ -54,17 +56,17 @@ export default function UserTable({ ...props }: UserTableProps) {
             key: 'email',
         },
         {
-            title: 'Phone Number',
+            title: message('common.phoneNumber'),
             dataIndex: 'phoneNumber',
             key: 'phoneNumber',
         },
         {
-            title: 'Name',
+            title: message('common.name'),
             dataIndex: 'firstName',
             key: 'name',
         },
         {
-            title: 'Role',
+            title: message('common.role'),
             dataIndex: 'role',
             key: 'role',
             align: 'center',
@@ -76,7 +78,7 @@ export default function UserTable({ ...props }: UserTableProps) {
             onFilter: (value, record) => record.role === value,
         },
         {
-            title: 'Active',
+            title: message('status.active'),
             dataIndex: 'status',
             key: 'status',
             render: (value) => {
@@ -94,14 +96,14 @@ export default function UserTable({ ...props }: UserTableProps) {
             onFilter: (value, record) => record.isActive === value,
         },
         {
-            title: 'Department',
+            title: message('common.department'),
             dataIndex: 'department',
             key: 'department',
             align: 'center',
         },
 
         {
-            title: 'Date Created',
+            title: message('common.dateCreated'),
             dataIndex: 'createdAt',
             key: 'createdAt',
             render: (value) => {
@@ -113,7 +115,7 @@ export default function UserTable({ ...props }: UserTableProps) {
             align: 'center',
         },
         {
-            title: 'Action',
+            title: message('common.action'),
             dataIndex: '',
             key: 'action',
             align: 'center',

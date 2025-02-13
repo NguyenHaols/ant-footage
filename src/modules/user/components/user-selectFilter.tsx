@@ -1,5 +1,6 @@
 import { UseFilterProps } from '@/hooks/useFilter';
 import { Select, SelectProps } from 'antd';
+import { useTranslations } from 'next-intl';
 import { UserParams } from '../types';
 
 type UserSelectFilterProps = Pick<
@@ -12,16 +13,22 @@ export default function UserSelectFilter({
     onChangeFilter,
     ...props
 }: UserSelectFilterProps) {
+    const message = useTranslations();
+
     const items = [
         {
             label: (
-                <p className="flex items-center justify-start gap-2">Blocked</p>
+                <p className="flex items-center justify-start gap-2">
+                    {message('status.block')}
+                </p>
             ),
             value: 'false',
         },
         {
             label: (
-                <p className="flex items-center justify-start gap-2">Active</p>
+                <p className="flex items-center justify-start gap-2">
+                    {message('status.active')}
+                </p>
             ),
             value: 'true',
         },
@@ -42,7 +49,7 @@ export default function UserSelectFilter({
                 {...props}
                 style={{ width: 150 }}
                 options={items}
-                placeholder={'Active'}
+                placeholder={message('status.active')}
                 allowClear
                 onChange={handleChange}
                 value={value || undefined}

@@ -7,13 +7,16 @@ import { useFilter } from '@/hooks/useFilter';
 import { useModalStore } from '@/hooks/useModal';
 import { Button } from 'antd';
 import { Plus } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import UserSelectFilter from './user-selectFilter';
 
 export default function UserHeader() {
+    const message = useTranslations();
     const { openModal } = useModalStore();
     const { dataFilter, onSearch, onChangeFilter } = useFilter(
         defaulFilterUserParams
     );
+
     return (
         <div className="flex items-center justify-between gap-2 px-4 py-4">
             <div className="flex items-center gap-2">
@@ -26,11 +29,11 @@ export default function UserHeader() {
             <div>
                 <Button
                     type="primary"
-                    style={{ padding: '4px 16px', height: '36px' }}
+                    className="h-9 px-1 py-4"
                     onClick={() => openModal(TYPE_MODAL_USER.CREATE)}
                 >
                     <Plus size={18} />
-                    Create
+                    {message('common.create')}
                 </Button>
             </div>
         </div>

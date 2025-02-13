@@ -6,7 +6,6 @@ import Image from 'next/image';
 
 export default function LanguageSelect() {
     const locale = useLocale();
-    console.log('🚀 ~ LanguageSelect ~ locale:', locale);
     const router = useRouter();
     const pathname = usePathname();
     const handleChange = (newLocale: string) => {

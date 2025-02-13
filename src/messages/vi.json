@@ -4,6 +4,13 @@
         "description": "Together we will succeed"
     },
     "common": {
+        "user": "Người dùng",
+        "department": "Phòng ban",
+        "role": "Vai trò",
+        "name": "Tên",
+        "phoneNumber": "Số điện thoại",
+        "avatar": "Ảnh đại diện",
+        "action": "Hành động",
         "update": "Cập nhật",
         "create": "Thêm mới",
         "detail": "Chi tiết ",
@@ -45,6 +52,9 @@
         "hint": "Phân tách bằng dấu phẩy",
         "last28Days": "28 ngày qua"
     },
+    "placeholders": {
+        "enterSearch": "Nhập tìm kiếm..."
+    },
     "delete": {
         "confirmTitle": "Xác nhận xoá",
         "confirmMessage": "Bạn có chắc muốn xoá?"
@@ -52,6 +62,7 @@
     "order": {
         "label": "Đặt hàng",
         "deadline": "Thời hạn",
+        "orderName": "Tên đặt hàng",
         "personInCharge": {
             "label": "Người thực hiện",
             "select": "Chọn người thực hiện"
@@ -60,8 +71,16 @@
             "label": "Loại đặt hàng",
             "video": "Video",
             "image": "Hình ảnh",
-            "document": "Tài liệu"
+            "document": "Tài liệu",
+            "audio": "Âm thanh"
+        },
+        "message": {
+            "delete": "Bạn có chắc chắn muốn xóa order ",
+            "dragAndDrop": "Kéo và thả ảnh tại đây"
         }
+    },
+    "product": {
+        "label": "Kiểu sản phẩm"
     },
     "video": {
         "label": "Video",

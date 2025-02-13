@@ -4,6 +4,14 @@
         "description": "Together we will succeed"
     },
     "common": {
+        "password": "Password",
+        "user": "User",
+        "department": "Department",
+        "role": "Role",
+        "name": "Name",
+        "phoneNumber": "Phone number",
+        "avatar": "Avatar",
+        "action": "Action",
         "update": "Update",
         "create": "Create",
         "detail": "Detail",
@@ -44,6 +52,9 @@
         "hint": "Separated by commas",
         "last28Days": "Last 28 days"
     },
+    "placeholders": {
+        "enterSearch": "Enter search..."
+    },
     "delete": {
         "confirmTitle": "Confirm delete",
         "confirmMessage": "Are you sure you want to delete?"
@@ -51,6 +62,8 @@
     "order": {
         "label": "Order",
         "deadline": "Deadline",
+        "orderName": "Order name",
+
         "personInCharge": {
             "label": "Person in charge",
             "select": "Select person in charge"
@@ -59,8 +72,16 @@
             "label": "Order type",
             "video": "Video",
             "image": "Image",
-            "document": "Document"
+            "document": "Document",
+            "audio": "Audio"
+        },
+        "message": {
+            "delete": "Are you sure you want to delete order ",
+            "dragAndDrop": "Drag and drop image here"
         }
+    },
+    "product": {
+        "label": "Product type"
     },
     "video": {
         "label": "Video",

@@ -1,7 +1,7 @@
-import { TYPE_ACTION } from '@/enums';
 import { useModalStore } from '@/hooks/useModal';
 import { Form, Input, Modal, ModalProps, Select } from 'antd';
-import { TYPE_MODAL_ORDER } from '../enums';
+import { useTranslations } from 'next-intl';
+import { ORDER_TYPE_PRODUCT, TYPE_MODAL_ORDER } from '../enums';
 import { useCreateOrder } from '../hooks/useCreateOrder';
 import { useUpdateOrder } from '../hooks/useUpdateOrder';
 import { Order, UpdateOrder } from '../types';
@@ -12,6 +12,8 @@ export default function OrderModal({ ...props }: Props) {
     const closeModal = useModalStore((state) => state.closeModal);
     const typeModal = useModalStore((state) => state.typeModal);
     const dataEdit = useModalStore((state) => state.dataEdit as Order | null);
+
+    const messsage = useTranslations();
 
     const [form] = Form.useForm();
 
@@ -59,8 +61,8 @@ export default function OrderModal({ ...props }: Props) {
             >
                 <span className="text-lg font-bold">
                     {typeModal === TYPE_MODAL_ORDER.UPDATE
-                        ? TYPE_ACTION.UPDATE
-                        : TYPE_ACTION.CREATE}
+                        ? messsage('common.update')
+                        : messsage('common.create')}
                 </span>
                 <Form
                     form={form}
@@ -71,7 +73,7 @@ export default function OrderModal({ ...props }: Props) {
                     onFinish={onFinish}
                 >
                     <Form.Item
-                        label="Order name"
+                        label={messsage('order.orderName')}
                         name="orderName"
                         rules={[
                             {
@@ -84,7 +86,7 @@ export default function OrderModal({ ...props }: Props) {
                     </Form.Item>
 
                     <Form.Item
-                        label="Product Type"
+                        label={messsage('product.label')}
                         name="productType"
                         rules={[
                             {
@@ -94,9 +96,15 @@ export default function OrderModal({ ...props }: Props) {
                         ]}
                     >
                         <Select>
-                            <Select.Option value="image">Image</Select.Option>
-                            <Select.Option value="mp3">Mp3</Select.Option>
-                            <Select.Option value="mp4">Mp4</Select.Option>
+                            <Select.Option value={ORDER_TYPE_PRODUCT.IMAGE}>
+                                Image
+                            </Select.Option>
+                            <Select.Option value={ORDER_TYPE_PRODUCT.AUDIO}>
+                                Audio
+                            </Select.Option>
+                            <Select.Option value={ORDER_TYPE_PRODUCT.VIDEO}>
+                                Video
+                            </Select.Option>
                         </Select>
                     </Form.Item>
 

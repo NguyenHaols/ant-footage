@@ -3,9 +3,10 @@ export interface Order {
     orderName: string;
     productType: string;
     description: string;
-    resuourceUrl: string;
+    resourceUrl: string;
     createdAt: string;
     updatedAt: string;
+    filePathGcs: string;
 }
 
 export interface OrderParams {
@@ -23,5 +24,10 @@ export interface PayloadUploadFile {
     fileName: string;
     contentType: string;
     fileSize: number;
-    orderId?: string;
+    folderName: string;
+}
+
+export interface ConfirmUploadParams {
+    orderId: string;
+    submitKey: string;
 }

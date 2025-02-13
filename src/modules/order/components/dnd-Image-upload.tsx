@@ -2,6 +2,7 @@ import { Image, Modal, Upload } from 'antd';
 // import Image from 'next/image';
 import type { UploadFile, UploadProps } from 'antd';
 import { UploadIcon } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import React, { useState } from 'react';
 
 const getBase64 = (file: any) =>
@@ -29,7 +30,7 @@ const DndImageUpload = ({
     const [previewImage, setPreviewImage] = useState<undefined | string>('');
     const [previewTitle, setPreviewTitle] = useState<undefined | string>('');
     const fileList = value?.fileList || [];
-
+    const message = useTranslations();
     // Prevent upload action
     function beforeUpload() {
         return false;
@@ -72,7 +73,9 @@ const DndImageUpload = ({
                 <p className="mx-auto mb-3 grid aspect-square w-14 place-content-center rounded-full bg-gray-200 text-2xl">
                     <UploadIcon />
                 </p>
-                <p className="ant-upload-text">Drag and drop image here</p>
+                <p className="ant-upload-text">
+                    {message('order.message.dragAndDrop')}
+                </p>
             </Dragger>
 
             <Modal

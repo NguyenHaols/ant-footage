@@ -4,6 +4,7 @@ import { deFaultOrderParams } from '@/constants';
 import { useFilter } from '@/hooks/useFilter';
 import { useModalStore } from '@/hooks/useModal';
 import DeleteModal from '@/modules/order/components/delete-modal';
+import DetailModal from '@/modules/order/components/detail-modal';
 import OrderHeader from '@/modules/order/components/order-header';
 import OrderModal from '@/modules/order/components/order-modal';
 import OrderTable from '@/modules/order/components/order-table';
@@ -41,6 +42,7 @@ export default function Order() {
 
             {typeModal === TYPE_MODAL_ORDER.UPLOAD && <UploadModal />}
             {typeModal === TYPE_MODAL_ORDER.DELETE && <DeleteModal />}
+            {typeModal === TYPE_MODAL_ORDER.DETAIL && <DetailModal />}
         </div>
     );
 }

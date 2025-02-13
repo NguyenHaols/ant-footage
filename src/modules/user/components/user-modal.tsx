@@ -1,17 +1,18 @@
 import { TYPE_ACTION, TYPE_MODAL_USER } from '@/enums';
 import { useModalStore } from '@/hooks/useModal';
 import { Form, Input, Modal, ModalProps, Select, Switch } from 'antd';
+import { useTranslations } from 'next-intl';
 import { useCreateUsers } from '../hooks/useCreateUsers';
 import useUpdateUser from '../hooks/useUpdateUser';
 import { UpdateUser, User } from '../types';
 
 interface Props extends ModalProps {}
 export default function UserModal({ ...props }: Props) {
-    const { closeModal } = useModalStore();
+    const closeModal = useModalStore((state) => state.closeModal);
+    const typeModal = useModalStore((state) => state.typeModal);
+    const dataEdit = useModalStore((state) => state.dataEdit as User | null);
 
-    const { typeModal } = useModalStore();
-
-    const { dataEdit } = useModalStore();
+    const messsage = useTranslations();
 
     const [form] = Form.useForm();
 
@@ -38,7 +39,7 @@ export default function UserModal({ ...props }: Props) {
         if (dataEdit) {
             const newData: UpdateUser = {
                 data: { ...values },
-                id: (dataEdit as User).id,
+                id: dataEdit.id,
             };
             updateUser(newData);
         } else {
@@ -81,7 +82,7 @@ export default function UserModal({ ...props }: Props) {
                     {!isUpdate && (
                         <>
                             <Form.Item
-                                label="Password"
+                                label={messsage('common.password')}
                                 name="password"
                                 rules={[
                                     {
@@ -96,7 +97,7 @@ export default function UserModal({ ...props }: Props) {
                     )}
 
                     <Form.Item
-                        label="Name"
+                        label={messsage('common.name')}
                         name="firstName"
                         rules={[
                             { required: true, message: 'Name is required!' },
@@ -106,7 +107,7 @@ export default function UserModal({ ...props }: Props) {
                     </Form.Item>
 
                     <Form.Item
-                        label="Phone number"
+                        label={messsage('common.phoneNumber')}
                         name="phoneNumber"
                         rules={[
                             {
@@ -124,7 +125,7 @@ export default function UserModal({ ...props }: Props) {
                     </Form.Item>
 
                     <Form.Item
-                        label="Role"
+                        label={messsage('common.role')}
                         name="role"
                         rules={[
                             { required: true, message: 'Role is required!' },
@@ -138,7 +139,7 @@ export default function UserModal({ ...props }: Props) {
                     </Form.Item>
 
                     <Form.Item
-                        label="Department"
+                        label={messsage('common.department')}
                         name="department"
                         rules={[
                             {
@@ -149,8 +150,8 @@ export default function UserModal({ ...props }: Props) {
                     >
                         <Input />
                     </Form.Item>
-                    <Form.Item label="Active" name="status">
-                        <Switch checked={(dataEdit as User)?.isActive} />
+                    <Form.Item label={messsage('status.active')} name="status">
+                        <Switch checked={dataEdit?.isActive} />
                     </Form.Item>
                 </Form>
             </Modal>

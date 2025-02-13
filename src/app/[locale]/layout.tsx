@@ -3,6 +3,8 @@ import { routing } from '@/i18n/routing';
 import { configTheme } from '@/style/theme';
 import { AntdRegistry } from '@ant-design/nextjs-registry';
 import { ConfigProvider } from 'antd';
+import en_US from 'antd/locale/en_US';
+import vi_VN from 'antd/locale/vi_VN';
 import { Metadata } from 'next';
 import { NextIntlClientProvider } from 'next-intl';
 import {
@@ -19,7 +21,6 @@ import { PropsWithChildren } from 'react';
 import { ToastContainer } from 'react-toastify';
 import ReactQueryClientProvider from '../../../providers/QueryClientProvider';
 import '../../style/globals.css';
-
 const inter = Inter({ subsets: ['latin'], weight: ['400', '700', '900'] });
 
 const boston = localFont({
@@ -41,14 +42,14 @@ export async function generateMetadata({
     const timeZone = await getTimeZone({ locale });
 
     return {
-        metadataBase: new URL('http://localhost:3000'),
+        metadataBase: new URL(process.env.url || 'http://localhost:3000'),
         title: t('title'),
         description: t('description'),
         other: {
             currentYear: formatter.dateTime(now, { year: 'numeric' }),
             timeZone: timeZone || 'N/A',
         },
-        icons: '/logo32.png',
+        icons: '/logo128.png',
     };
 }
 
@@ -70,7 +71,10 @@ export default async function RootLayout({
             >
                 <NextIntlClientProvider locale={locale} messages={messages}>
                     <AntdRegistry>
-                        <ConfigProvider theme={configTheme}>
+                        <ConfigProvider
+                            locale={locale === 'vi' ? vi_VN : en_US}
+                            theme={configTheme}
+                        >
                             <ReactQueryClientProvider>
                                 <ToastContainer />
                                 {children}

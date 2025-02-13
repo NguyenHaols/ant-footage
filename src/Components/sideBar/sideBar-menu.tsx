@@ -3,24 +3,31 @@ import { cn } from '@/lib/utils';
 import { Menu } from 'antd';
 import { ItemType, MenuItemType } from 'antd/es/menu/interface';
 import { FileText, User } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
 interface SideBarMenuProps {
     open: boolean;
 }
 
 export default function SideBarMenu({ open }: SideBarMenuProps) {
+    const message = useTranslations();
+
     const items: ItemType<MenuItemType>[] = [
         {
             key: 'Management',
             type: 'group',
-            label: <p className={cn(open ? 'hidden' : 'block')}>Management</p>,
+            label: (
+                <p className={cn(open ? 'hidden' : 'block')}>
+                    {message('common.management')}
+                </p>
+            ),
             children: [
                 {
                     key: '/order',
                     icon: <FileText size={18} />,
                     label: (
                         <Link className="font-medium" href={'/order'}>
-                            Order
+                            {message('order.label')}
                         </Link>
                     ),
                 },
@@ -29,7 +36,7 @@ export default function SideBarMenu({ open }: SideBarMenuProps) {
                     icon: <User size={18} />,
                     label: (
                         <Link className="font-medium" href={'/user'}>
-                            User
+                            {message('common.user')}
                         </Link>
                     ),
                 },

@@ -3,6 +3,7 @@ import { useModalStore } from '@/hooks/useModal';
 import { Table, TableProps } from 'antd';
 import { ColumnType, TablePaginationConfig } from 'antd/es/table';
 import { Eye, Pencil, Trash, Upload } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import { TYPE_MODAL_ORDER } from '../enums';
 import { Order } from '../types';
 
@@ -10,6 +11,7 @@ interface OrderTableProps extends Omit<TableProps<Order>, 'columns'> {}
 
 export default function OrderTable({ ...props }: OrderTableProps) {
     const { openModal } = useModalStore();
+    const message = useTranslations();
 
     const columns: ColumnType<Order>[] = [
         {
@@ -26,19 +28,19 @@ export default function OrderTable({ ...props }: OrderTableProps) {
                 ),
         },
         {
-            title: 'Order Name',
+            title: message('order.orderName'),
             dataIndex: 'orderName',
             key: 'orderName',
             align: 'center',
         },
         {
-            title: 'Product type',
+            title: message('product.label'),
             dataIndex: 'productType',
             key: 'productType',
             align: 'center',
         },
         {
-            title: 'Created at',
+            title: message('common.dateCreated'),
             dataIndex: 'createdAt',
             key: 'createdAt',
             align: 'center',
@@ -63,7 +65,7 @@ export default function OrderTable({ ...props }: OrderTableProps) {
         // },
 
         {
-            title: 'Action',
+            title: message('common.action'),
             dataIndex: '',
             key: 'action',
             align: 'center',
@@ -104,7 +106,7 @@ export default function OrderTable({ ...props }: OrderTableProps) {
                             onClick={() => {
                                 openModal(TYPE_MODAL_ORDER.DELETE, value);
                             }}
-                            className="rounded-full p-2 hover:bg-red-100 hover:text-red-500"
+                            className="rounded-full p-2 text-red-500 hover:bg-red-100"
                         >
                             <Trash size={16} />
                         </button>
