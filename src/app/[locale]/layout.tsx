@@ -66,12 +66,6 @@ export default async function RootLayout({
     const messages = await getMessages();
     return (
         <html lang={locale}>
-            <head>
-                <meta
-                    http-equiv="Content-Security-Policy"
-                    content="upgrade-insecure-requests"
-                />
-            </head>
             <body
                 className={`${inter.className} ${boston.variable} antialiased`}
             >
