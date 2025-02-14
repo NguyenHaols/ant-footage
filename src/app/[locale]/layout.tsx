@@ -24,7 +24,7 @@ import '../../style/globals.css';
 const inter = Inter({ subsets: ['latin'], weight: ['400', '700', '900'] });
 
 const boston = localFont({
-    src: '../../fonts/Boston.otf',
+    src: '../../fonts/boston.otf',
     variable: '--font-boston',
 });
 
