@@ -42,7 +42,7 @@ export async function generateMetadata({
     const timeZone = await getTimeZone({ locale });
 
     return {
-        metadataBase: new URL(process.env.url || 'http://localhost:3000'),
+        metadataBase: new URL(process.env.url || 'http://localhost:3100'),
         title: t('title'),
         description: t('description'),
         other: {
@@ -66,6 +66,12 @@ export default async function RootLayout({
     const messages = await getMessages();
     return (
         <html lang={locale}>
+            <head>
+                <meta
+                    http-equiv="Content-Security-Policy"
+                    content="upgrade-insecure-requests"
+                />
+            </head>
             <body
                 className={`${inter.className} ${boston.variable} antialiased`}
             >
