@@ -53,7 +53,7 @@ axiosClient.interceptors.response.use(undefined, async (error) => {
     //     }
     // }
     const currentLocale = cookies.get('NEXT_LOCALE');
-    if (error?.response?.status === 403) {
+    if (error?.response?.status === 401) {
         return (window.location.href = `/${currentLocale}/${ROUTES.LOGIN}`);
     }
     return Promise.reject(error);
