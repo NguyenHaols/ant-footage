@@ -4,7 +4,10 @@ import { ConfirmUploadParams, PayloadUploadFile } from '@/modules/order/types';
 export const uploadApi = {
     uploadFile: async (payload: PayloadUploadFile, file: File) => {
         try {
-            const res = await axiosClient.post('file/get-link-upload', payload);
+            const res = await axiosClient.post(
+                'file-gcs/get-link-upload',
+                payload
+            );
             const { url, submitKey } = res.data.data;
 
             if (!url || !submitKey) {
@@ -32,6 +35,6 @@ export const uploadApi = {
     },
 
     uploadFileConfirm: async (payload: ConfirmUploadParams) => {
-        return await axiosClient.post('/file/submit-upload', payload);
+        return await axiosClient.post('file-gcs/submit-upload', payload);
     },
 };

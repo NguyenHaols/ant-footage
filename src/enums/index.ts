@@ -29,3 +29,8 @@ export enum TYPE_ACTION {
     CREATE = 'Create',
     UPDATE = 'Update',
 }
+
+export enum ENTITY_TYPE {
+    ORDER = 'order',
+    USER = 'user',
+}

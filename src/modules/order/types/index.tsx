@@ -6,7 +6,6 @@ export interface Order {
     resourceUrl: string;
     createdAt: string;
     updatedAt: string;
-    filePathGcs: string;
 }
 
 export interface OrderParams {
@@ -24,10 +23,10 @@ export interface PayloadUploadFile {
     fileName: string;
     contentType: string;
     fileSize: number;
-    folderName: string;
+    entityType: string;
+    entityId: string;
 }
 
 export interface ConfirmUploadParams {
-    orderId: string;
     submitKey: string;
 }

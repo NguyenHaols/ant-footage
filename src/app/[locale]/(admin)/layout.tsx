@@ -1,7 +1,7 @@
 'use client';
 
-import HeaderLayout from '@/Components/header/header';
-import SideBar from '@/Components/sideBar/sideBar';
+import HeaderLayout from '@/components/header/header';
+import SideBar from '@/components/sideBar/sideBar';
 import { Layout } from 'antd';
 import { PropsWithChildren, useState } from 'react';
 

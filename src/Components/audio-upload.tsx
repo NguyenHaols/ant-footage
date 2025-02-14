@@ -1,3 +1,4 @@
+import { showNotification } from '@/helpers/messagesHelper';
 import { UploadOutlined } from '@ant-design/icons';
 import { Button, Upload, UploadProps } from 'antd';
 
@@ -5,7 +6,7 @@ export interface FileUploadProps extends UploadProps {
     value?: any;
 }
 
-const FileUpload = ({
+const AudioUpload = ({
     value,
     maxCount = 1,
     listType = 'picture',
@@ -15,7 +16,12 @@ const FileUpload = ({
     const fileList = value?.fileList || [];
 
     // Prevent upload action
-    function beforeUpload() {
+    function beforeUpload(file: File) {
+        const isAudio = file.type.startsWith('audio/');
+        if (!isAudio) {
+            showNotification('error', 'Please select a audio file');
+            return Upload.LIST_IGNORE;
+        }
         return false;
     }
 
@@ -46,4 +52,4 @@ const FileUpload = ({
     );
 };
 
-export default FileUpload;
+export default AudioUpload;

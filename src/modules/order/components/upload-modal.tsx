@@ -1,5 +1,7 @@
 import { uploadApi } from '@/apis';
-import FileUpload from '@/components/file-upload';
+import AudioUpload from '@/components/audio-upload';
+import VideoUpload from '@/components/video-upload';
+import { ENTITY_TYPE } from '@/enums';
 import { useModalStore } from '@/hooks/useModal';
 import { Form, Modal } from 'antd';
 import { useTranslations } from 'next-intl';
@@ -23,24 +25,26 @@ export default function UploadModal() {
     const { uploadOrder, isPending } = useUploadOrder(handleUploadSuccess);
 
     const onFinish = async () => {
-        const file = form.getFieldValue('file');
-        console.log(file.fileList[0]);
-        const payload: PayloadUploadFile = {
-            fileName: file.fileList[0].originFileObj.name,
-            contentType: file.fileList[0].type,
-            fileSize: file.fileList[0].size,
-            folderName: editData?.productType ?? '',
-        };
-        const res = await uploadApi.uploadFile(
-            payload,
-            file.fileList[0].originFileObj
-        );
-        if (res && editData) {
-            const uploadData: ConfirmUploadParams = {
-                orderId: editData?.id,
-                submitKey: res.submitKey,
+        if (editData) {
+            const file = form.getFieldValue('file');
+            console.log(file.fileList[0]);
+            const payload: PayloadUploadFile = {
+                fileName: file.fileList[0].originFileObj.name,
+                contentType: file.fileList[0].type,
+                fileSize: file.fileList[0].size,
+                entityType: ENTITY_TYPE.ORDER,
+                entityId: editData?.id,
             };
-            uploadOrder(uploadData);
+            const res = await uploadApi.uploadFile(
+                payload,
+                file.fileList[0].originFileObj
+            );
+            if (res && editData) {
+                const uploadData: ConfirmUploadParams = {
+                    submitKey: res.submitKey,
+                };
+                uploadOrder(uploadData);
+            }
         }
     };
 
@@ -66,21 +70,9 @@ export default function UploadModal() {
                                     },
                                 ]}
                             >
-                                <FileUpload accept="audio/*" />
+                                <AudioUpload accept="audio/*" />
                             </Form.Item>
                         )}
-                        {/* <Form.Item
-                            label="Image"
-                            name="image"
-                            rules={[
-                                {
-                                    required: true,
-                                    message: 'Image is required!',
-                                },
-                            ]}
-                        >
-                            <ImageUpload />
-                        </Form.Item> */}
                         {editData?.productType === ORDER_TYPE_PRODUCT.IMAGE && (
                             <Form.Item
                                 label={message('order.type.image')}
@@ -108,7 +100,7 @@ export default function UploadModal() {
                                     },
                                 ]}
                             >
-                                {/* video */}
+                                <VideoUpload accept="video/*" />
                             </Form.Item>
                         )}
                     </Form>

@@ -1,3 +1,4 @@
+import { showNotification } from '@/helpers/messagesHelper';
 import { Image, Modal, Upload } from 'antd';
 // import Image from 'next/image';
 import type { UploadFile, UploadProps } from 'antd';
@@ -32,7 +33,12 @@ const DndImageUpload = ({
     const fileList = value?.fileList || [];
     const message = useTranslations();
     // Prevent upload action
-    function beforeUpload() {
+    function beforeUpload(file: File) {
+        const isImage = file.type.startsWith('image/');
+        if (!isImage) {
+            showNotification('error', 'Please select a image file');
+            return Upload.LIST_IGNORE;
+        }
         return false;
     }
 

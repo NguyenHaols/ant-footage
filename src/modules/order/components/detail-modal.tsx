@@ -3,13 +3,14 @@ import { Form, Image, Input, Modal, Select } from 'antd';
 import { useTranslations } from 'next-intl';
 import AudioPlayer from 'react-h5-audio-player';
 import 'react-h5-audio-player/lib/styles.css';
+import ReactPlayer from 'react-player';
 import { ORDER_TYPE_PRODUCT } from '../enums';
 import { Order } from '../types';
 
 export default function DetailModal() {
     const closeModal = useModalStore((state) => state.closeModal);
     const dataEdit = useModalStore((state) => state.dataEdit as Order | null);
-    console.log('🚀 ~ DetailModal ~ dataEdit:', dataEdit?.resourceUrl);
+    console.log('🚀 ~ DetailModal ~ dataEdit:', dataEdit);
     const message = useTranslations();
 
     return (
@@ -80,6 +81,25 @@ export default function DetailModal() {
                                     layout="horizontal"
                                     customAdditionalControls={[]}
                                     style={{ marginTop: 10 }}
+                                />
+                            </Form.Item>
+                        )}
+
+                    {dataEdit?.productType === ORDER_TYPE_PRODUCT.VIDEO &&
+                        dataEdit.resourceUrl && (
+                            <Form.Item
+                                label={message('order.type.video')}
+                                name="resuourceUrl"
+                                rules={[{ required: true }]}
+                            >
+                                <ReactPlayer
+                                    url={dataEdit?.resourceUrl ?? ''}
+                                    controls
+                                    width="100%"
+                                    height="300px"
+                                    playing
+                                    loop
+                                    muted
                                 />
                             </Form.Item>
                         )}

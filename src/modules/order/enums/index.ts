@@ -7,8 +7,8 @@ export enum TYPE_MODAL_ORDER {
 }
 
 export enum ORDER_TYPE_PRODUCT {
-    IMAGE = 'image',
-    VIDEO = 'mp4',
-    AUDIO = 'mp3',
-    PDF = 'pdf',
+    IMAGE = 'Image',
+    VIDEO = 'Video',
+    AUDIO = 'Audio',
+    PDF = 'Pdf',
 }
