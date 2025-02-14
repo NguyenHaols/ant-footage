@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useSearchParams } from 'next/navigation';
 
 function useQueryParams() {

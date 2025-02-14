@@ -17,12 +17,11 @@ export default function AppSearch({
 }: Props) {
     const messages = useTranslations();
 
-    const debounceSearchChange = useCallback(
+    const debounceSearchChange = 
         _.debounce((e: React.ChangeEvent<HTMLInputElement>) => {
             onChange(e);
-        }, delay),
-        [onChange, delay]
-    );
+        }, delay)
+    ;
 
     useEffect(() => {
         return () => {
