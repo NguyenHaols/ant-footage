@@ -1,7 +1,7 @@
 import { OnSearchType } from '@/hooks/useFilter';
 import { Input } from 'antd';
 import _ from 'lodash';
-import { useCallback, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useTranslations } from 'use-intl';
 
 type Props = {
