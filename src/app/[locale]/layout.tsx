@@ -19,12 +19,13 @@ import localFont from 'next/font/local';
 import { notFound } from 'next/navigation';
 import { PropsWithChildren } from 'react';
 import { ToastContainer } from 'react-toastify';
-import ReactQueryClientProvider from '../../../providers/QueryClientProvider';
+import ReactQueryClientProvider from '../../providers/QueryClientProvider';
+import '@/fonts/Boston.otf'
 import '../../style/globals.css';
 const inter = Inter({ subsets: ['latin'], weight: ['400', '700', '900'] });
 
 const boston = localFont({
-    src: '../../fonts/Boston.otf',
+    src: '@/fonts/Boston.otf',
     variable: '--font-boston',
 });
 
