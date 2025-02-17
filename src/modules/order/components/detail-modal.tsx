@@ -10,7 +10,6 @@ import { Order } from '../types';
 export default function DetailModal() {
     const closeModal = useModalStore((state) => state.closeModal);
     const dataEdit = useModalStore((state) => state.dataEdit as Order | null);
-    console.log('🚀 ~ DetailModal ~ dataEdit:', dataEdit);
     const message = useTranslations();
 
     return (

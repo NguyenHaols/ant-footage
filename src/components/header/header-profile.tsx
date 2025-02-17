@@ -1,9 +1,14 @@
-import { ROUTES } from '@/constants';
-import { Link } from '@/i18n/routing';
+import useAuth from '@/modules/auth/hooks/useAuth';
 import { Avatar, Dropdown, MenuProps } from 'antd';
 import { LogOutIcon, Settings, User2Icon } from 'lucide-react';
 
 export default function HeaderProfile() {
+    const { logout } = useAuth();
+
+    const handleLogOut = () => {
+        logout();
+    };
+
     const items: MenuProps['items'] = [
         {
             label: (
@@ -39,13 +44,13 @@ export default function HeaderProfile() {
         },
         {
             label: (
-                <Link
-                    href={ROUTES.LOGIN}
+                <p
+                    onClick={handleLogOut}
                     className="flex items-center justify-start gap-2"
                 >
                     <LogOutIcon size={18} />
                     Logout
-                </Link>
+                </p>
             ),
             key: '3',
         },

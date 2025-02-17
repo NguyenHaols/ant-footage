@@ -19,6 +19,7 @@ export default function useAuth() {
     async function login(payload: LoginPayload) {
         try {
             const response = await authApi.login(payload);
+
             const { access_token } = response.data;
             cookies.set('at', access_token, {
                 secure: false,
@@ -40,6 +41,8 @@ export default function useAuth() {
 
     function logout() {
         const url = ROUTES.LOGIN;
+        cookies.remove('at');
+        cookies.remove('rt');
         router.push(url);
     }
 

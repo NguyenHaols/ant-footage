@@ -4,6 +4,7 @@
         "description": "Together we will succeed"
     },
     "common": {
+        "topic": "Chủ đề",
         "user": "Người dùng",
         "department": "Phòng ban",
         "role": "Vai trò",

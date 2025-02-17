@@ -4,6 +4,7 @@
         "description": "Together we will succeed"
     },
     "common": {
+        "topic": "Topic",
         "password": "Password",
         "user": "User",
         "department": "Department",

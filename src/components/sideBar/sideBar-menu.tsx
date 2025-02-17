@@ -2,7 +2,7 @@ import { Link, usePathname } from '@/i18n/routing';
 import { cn } from '@/lib/utils';
 import { Menu } from 'antd';
 import { ItemType, MenuItemType } from 'antd/es/menu/interface';
-import { FileText, User } from 'lucide-react';
+import { FileText, ListCollapse, User } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
 interface SideBarMenuProps {
@@ -37,6 +37,15 @@ export default function SideBarMenu({ open }: SideBarMenuProps) {
                     label: (
                         <Link className="font-medium" href={'/user'}>
                             {message('common.user')}
+                        </Link>
+                    ),
+                },
+                {
+                    key: '/topic',
+                    icon: <ListCollapse size={18} />,
+                    label: (
+                        <Link className="font-medium" href={'/topic'}>
+                            {message('common.topic')}
                         </Link>
                     ),
                 },
